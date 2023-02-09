@@ -6,14 +6,11 @@ import HomePage from '../views/HomePage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    component: HomePage,
+	children:[
+		...weatherRoutes
+	]
   },
-  {
-    path: '/home',
-    name: 'Home',
-    component: HomePage
-  },
-  ...weatherRoutes
 ]
 
 const router = createRouter({
