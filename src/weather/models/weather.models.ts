@@ -17,7 +17,7 @@ interface Temperature extends FeelsLike {
 	min: number;
 }
 
-interface CurrentWeather {
+export class CurrentWeather {
 	feels_like: number;
 	humidity: number;
 	sunrise: number;
@@ -25,9 +25,28 @@ interface CurrentWeather {
 	temp: number;
 	weather: Weather[];
 	wind_speed: number;
+
+	constructor(
+		feels_like: number,
+		humidity: number,
+		sunrise: number,
+		sunset: number,
+		temp: number,
+		weather: Weather[],
+		wind_speed: number,
+	) {
+		this.feels_like = feels_like;
+		this.humidity = humidity;
+		this.sunrise = sunrise;
+		this.sunset = sunset;
+		this.temp = temp;
+		this.weather = weather;
+		this.wind_speed = wind_speed;
+	}
+
 }
 
-interface DailyWeather {
+export interface DailyWeather {
 	feels_like: FeelsLike;
 	humidity: number;
 	sunrise: number;
