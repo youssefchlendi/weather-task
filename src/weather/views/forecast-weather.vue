@@ -1,5 +1,5 @@
 <template>
-	<ion-list v-if="forecastWeather">
+	<ion-list v-if="forecastWeather && !loadingForecastWeather">
 		<ion-list-header>
 			Forecast
 		</ion-list-header>
@@ -26,6 +26,7 @@
 			</ion-label>
 		</ion-item>
 	</ion-list>
+	<ion-spinner v-else></ion-spinner>
 </template>
 
 <script lang="ts">
@@ -44,14 +45,15 @@ export default defineComponent({
 		...commonIonicComponents
 	},
 	setup () {
-		const { forecastWeather, fetchForecastWeather, getWeatherImageUrl, formatTemperature } = useWeather()
+		const { loadingForecastWeather, forecastWeather, fetchForecastWeather, getWeatherImageUrl, formatTemperature } = useWeather()
 
 		onMounted(fetchForecastWeather);
 
 		return {
 			forecastWeather,
 			getWeatherImageUrl,
-			formatTemperature
+			formatTemperature,
+			loadingForecastWeather
 		}
 	}
 })
