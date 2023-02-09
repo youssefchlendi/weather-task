@@ -6,6 +6,11 @@ import HomePage from '../views/HomePage.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    redirect: '/weather/current'
+  },
+  {
+    path: '/weather',
+    name: '',
     component: HomePage,
 	children:[
 		...weatherRoutes
