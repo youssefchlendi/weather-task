@@ -9,6 +9,8 @@ const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?appid=${ap
 
 const currentWeather = ref<CurrentWeather>();
 const forecastWeather = ref<DailyWeather[]>();
+const loadingCurrentWeather = ref<boolean>(true);
+const loadingForecastWeather = ref<boolean>(true);
 
 fetchCurrentWeather();
 fetchForecastWeather();
@@ -20,6 +22,8 @@ setInterval(() => {
 
 export function useWeather() {
 	return {
+		loadingCurrentWeather,
+		loadingForecastWeather,
 		currentWeather,
 		fetchCurrentWeather,
 		formatTemperature,
@@ -30,7 +34,7 @@ export function useWeather() {
 }
 
 async function fetchCurrentWeather() {
-	console.log("Fetchig weather");
+	loadingCurrentWeather.value = true;
 	const { coords } = await Geolocation.getCurrentPosition();
 	const response = await fetch(`${weatherUrl}&lat=${coords.latitude}&lon=${coords.longitude}`);
 	const res = await response.json();
@@ -45,9 +49,11 @@ async function fetchCurrentWeather() {
 		res.wind.speed,
 
 	);
+	loadingCurrentWeather.value = false;
 }
 
 async function fetchForecastWeather() {
+	loadingForecastWeather.value = true;
 	const { coords } = await Geolocation.getCurrentPosition();
 	const response = await fetch(`${forecastUrl}&lat=${coords.latitude}&lon=${coords.longitude}`);
 	const res = await response.json();
@@ -68,6 +74,7 @@ async function fetchForecastWeather() {
 		)
 	});
 
+	loadingForecastWeather.value = false;
 
 }
 

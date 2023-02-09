@@ -13,7 +13,10 @@ import {
 	IonCardContent,
 	IonButton,
 	IonIcon,
-	IonPage
+	IonPage,
+	IonSpinner,
+	IonRefresher,
+	IonRefresherContent
 } from '@ionic/vue';
 
 export default {
@@ -31,5 +34,8 @@ export default {
 	IonCardContent,
 	IonButton,
 	IonIcon,
-	IonPage
+	IonPage,
+	IonSpinner,
+	IonRefresher,
+	IonRefresherContent
 };

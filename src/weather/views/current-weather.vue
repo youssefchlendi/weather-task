@@ -1,5 +1,5 @@
 <template>
-	<ion-card v-if="currentWeather">
+	<ion-card v-if="currentWeather && !loadingCurrentWeather">
 		<div class="weather-background">
 			<img :src="getWeatherImageUrl(currentWeather.weather[0].icon, '4x')" />
 		</div>
@@ -47,6 +47,7 @@
 			</ion-grid>
 		</ion-card-content>
 	</ion-card>
+	<ion-spinner  v-else></ion-spinner>
 </template>
 
 <script lang="ts">
@@ -58,7 +59,7 @@ export default defineComponent({
 		...commonIonicComponents
 	},
 	setup() {
-		const { currentWeather, fetchCurrentWeather, formatTemperature, getWeatherImageUrl } = useWeather();
+		const { currentWeather, fetchCurrentWeather, formatTemperature, getWeatherImageUrl, loadingCurrentWeather } = useWeather();
 
 		onMounted(fetchCurrentWeather);
 
@@ -67,8 +68,8 @@ export default defineComponent({
 			currentWeather,
 			fetchCurrentWeather,
 			formatTemperature,
-			getWeatherImageUrl
-
+			getWeatherImageUrl,
+			loadingCurrentWeather
 		}
 	}
 })
