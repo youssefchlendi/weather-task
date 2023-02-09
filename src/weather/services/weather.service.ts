@@ -4,8 +4,8 @@ import { CurrentWeather, DailyWeather, FeelsLike, Temperature } from "../models/
 
 const apiKey = "b7bed957715ceda237f558f8e9126a44";
 
-const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}`
-const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}`;
+const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial`
+const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=imperial`;
 
 const currentWeather = ref<CurrentWeather>();
 const forecastWeather = ref<DailyWeather[]>();
@@ -29,7 +29,7 @@ export function useWeather() {
 	}
 }
 
-async function fetchCurrentWeather(){
+async function fetchCurrentWeather() {
 	console.log("Fetchig weather");
 	const { coords } = await Geolocation.getCurrentPosition();
 	const response = await fetch(`${weatherUrl}&lat=${coords.latitude}&lon=${coords.longitude}`);
@@ -55,7 +55,7 @@ async function fetchForecastWeather() {
 	forecastWeather.value = res.list.map((item: any) => {
 		return new DailyWeather(
 			item.dt,
-			new FeelsLike(item.main.feels_like,item.main.feels_like,item.main.feels_like,item.main.feels_like),
+			new FeelsLike(item.main.feels_like, item.main.feels_like, item.main.feels_like, item.main.feels_like),
 			item.main.humidity,
 			0,
 			0,
@@ -68,13 +68,20 @@ async function fetchForecastWeather() {
 		)
 	});
 
-	
+
 }
 
-function formatTemperature(value: number|undefined , format: 'F' | 'C' = "C") {
-	return value?`${Math.round(value)}° ${format} `:'';
+function formatTemperature(value: number | undefined, format: 'F' | 'C' = "C") {
+	if (value) {
+		if (format === "F") {
+			return value ? `${Math.round(value)}° ${format} ` : '';
+		} else {
+			return value ? `${Math.round((value - 32)*5/9)}° ${format} ` : '';
+		}
+	}
+	return 0;
 }
 
-function getWeatherImageUrl(iconName: string|undefined = "04d", size: '2x' | '4x') {
-	return `http://openweathermap.org/img/wn/${iconName}@${size}.png`;
-}
+	function getWeatherImageUrl(iconName: string | undefined = "04d", size: '2x' | '4x') {
+		return `http://openweathermap.org/img/wn/${iconName}@${size}.png`;
+	}

@@ -11,7 +11,7 @@
 			</ion-avatar>
 			<ion-label>
 				<h1>
-					{{ formatTemperature(daily.temp.day,"F") }}
+					{{ formatTemperature(daily.temp.day,"C") }}
 				</h1>
 				<h2>
 					{{ daily.weather[0].description }}

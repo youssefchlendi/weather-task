@@ -9,7 +9,7 @@
 				{{ currentWeather.weather[0].description }}
 			</ion-card-subtitle>
 			<ion-card-title>
-				{{ formatTemperature(currentWeather.temp, 'F') }}
+				{{ formatTemperature(currentWeather.temp, 'C') }}
 			</ion-card-title>
 		</ion-card-header>
 
