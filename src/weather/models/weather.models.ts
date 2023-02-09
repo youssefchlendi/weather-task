@@ -5,16 +5,30 @@ interface Weather {
 	icon: string; 
 }
 
-interface FeelsLike {
+export class FeelsLike {
 	day: number;
 	eve: number;
 	morn: number;
 	night: number;
+
+	constructor(day: number, eve: number, morn: number, night: number) {
+		this.day = day;
+		this.eve = eve;
+		this.morn = morn;
+		this.night = night;
+	}
 }
 
-interface Temperature extends FeelsLike {
+export class Temperature extends FeelsLike {
 	max: number;
 	min: number;
+
+	constructor(max: number, min: number) {
+		super(max, min, max, min);
+		this.max = max;
+		this.min = min;
+	}
+	
 }
 
 export class CurrentWeather {
@@ -46,7 +60,8 @@ export class CurrentWeather {
 
 }
 
-export interface DailyWeather {
+export class DailyWeather {
+	dt: number;
 	feels_like: FeelsLike;
 	humidity: number;
 	sunrise: number;
@@ -54,6 +69,26 @@ export interface DailyWeather {
 	temp: Temperature;
 	weather: Weather[];
 	wind_speed: number;
+
+	constructor(
+		dt: number,
+		feels_like: FeelsLike,
+		humidity: number,
+		sunrise: number,
+		sunset: number,
+		temp: Temperature,
+		weather: Weather[],
+		wind_speed: number,
+	) {
+		this.dt = dt;
+		this.feels_like = feels_like;
+		this.humidity = humidity;
+		this.sunrise = sunrise;
+		this.sunset = sunset;
+		this.temp = temp;
+		this.weather = weather;
+		this.wind_speed = wind_speed;
+	}
 }
 
 export interface OneWeather {
